@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+
+  #  mysql:
+  #    image: mysql:5.6
+  #    restart: always
+  #    environment:
+  #      MYSQL_DATABASE: 'db'
+  #      MYSQL_USER: 'user'
+  #      MYSQL_PASSWORD: 'password'
+  #      MYSQL_ROOT_PASSWORD: 'password'
+  #    ports:
+  #      - '3306:3306'
+  #    volumes:
+  #      - ./var/mysql:/var/lib/mysql
+  #    healthcheck:
+  #      test: "/usr/bin/mysql --user=root --password=password --execute \"SHOW DATABASES;\""
+  #      interval: 2s
+  #      timeout: 20s
+  #      retries: 3
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/app
+      - ./ops/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  php:
+    build: ./ops/php-fpm
+    volumes:
+      - ./:/app
+
+#  redis:
+#    image: redis
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - ./var/redis:/data
+#
+#  rabbitmq:
+#    image: "rabbitmq:3-management"
+#    environment:
+#      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+#      RABBITMQ_DEFAULT_USER: "rabbitmq"
+#      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#      RABBITMQ_DEFAULT_VHOST: "/"
+#    ports:
+#      - "15672:15672"
+#      - "5672:5672"
+#
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+#    user: root
+#    environment:
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#      - "TAKE_FILE_OWNERSHIP=1"
+#    volumes:
+#      - ./var/elasticsearch/data:/usr/share/elasticsearch/data
+#      - ./ops/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+#    ports:
+#      - "9200:9200"
+#    healthcheck:
+#      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+#      interval: 30s
+#      timeout: 30s
+#      retries: 3
+#
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:7.5.0
+#    ports:
+#      - "5601:5601"
+#    environment:
+#      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+#    depends_on:
+#      - elasticsearch
+#    healthcheck:
+#      test: ["CMD", "curl", "-s", "-f", "http://localhost:5601/"]
+#      interval: 30s
+#      timeout: 30s
+#      retries: 3
+#
+#  blackfire:
+#    image: blackfire/blackfire
+#    environment:
+#       BLACKFIRE_CLIENT_ID: 61207204-d2a8-44d7-a4b8-fc6f6e6c57f8
+#       BLACKFIRE_CLIENT_TOKEN: d54a097aa6dc2da7610f545c52c3bc1b2508d9714b86bdb90b3eeaf723b4e00e
+#       BLACKFIRE_SERVER_ID: 937fe558-aa2b-46cd-bee5-7acdc2525521
+#       BLACKFIRE_SERVER_TOKEN: 492d486964956f9d7a929a9f4216c95eea51a2da0087118f285bd42acf723097
