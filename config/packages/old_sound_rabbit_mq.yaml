@@ -1,0 +1,14 @@
+old_sound_rabbit_mq:
+    connections:
+        default:
+            url: '%env(RABBITMQ_URL)%'
+    producers:
+        transform_images:
+            connection:       default
+            exchange_options: { name: '%env(RABBIT_EXCHANGE)%', type: direct }
+    consumers:
+        transform_and_save_images:
+            connection:       default
+            exchange_options: { name: '%env(RABBIT_EXCHANGE)%', type: direct }
+            queue_options:    { name: '%env(RABBIT_QUEUE)%'}
+            callback:         App\Consumer\ConsumerController
