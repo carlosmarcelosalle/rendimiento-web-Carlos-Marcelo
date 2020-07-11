@@ -66,7 +66,7 @@ final class ConsumerController extends AbstractController
             'tags' => $message['tags']
         ]);
 
-        ElasticSearchModel::addElasticSearch($message['id'], $message['tags'], $path, $newTitle, $message['description']);
+        ElasticSearchModel::addElasticSearch($message['id'], $message['tags'], $path . 'transformations/', $newTitle, $message['description']);
 
         echo 'Image converted and Saved;'. PHP_EOL;
 

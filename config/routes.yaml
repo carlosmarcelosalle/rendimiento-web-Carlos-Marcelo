@@ -9,3 +9,11 @@ upload:
 gallery:
   path: /gallery
   controller: App\Controller\GalleryController
+
+search:
+  path: /search
+  controller: App\Controller\SearcherController
+
+searchSubmit:
+  path: /searchSubmit
+  controller: App\Controller\SearcherController::searchSubmit
