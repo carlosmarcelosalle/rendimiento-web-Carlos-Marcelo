@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+</head>
+<body>
+    <h1>This is your awesome gallery!</h1>
+    {% for photo in photos %}
+        <img src="{{ photo.path }}{{ photo.title }}">
+    {% endfor %}
+
+</body>
+</html>

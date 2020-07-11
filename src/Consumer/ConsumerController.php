@@ -49,7 +49,9 @@ final class ConsumerController extends AbstractController
         $image->toFile($path . 'transformations/' . $newTitle);
         $mysql = new \PDO('mysql:dbname=db;host=mysql', 'user', 'password');
 
-        $sql = "INSERT INTO photos (id_photo, path, title, description, tags, original) VALUES (:id, :path, :title, :description, :tags, 0)";
+        $path = str_replace("/app/public/", "", $path);
+
+        $sql = "INSERT INTO pictures (id_photo, path, title, description, tags, original) VALUES (:id, :path, :title, :description, :tags, 0)";
 
         $stmt =$mysql->prepare($sql);
 

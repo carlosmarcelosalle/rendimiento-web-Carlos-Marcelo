@@ -53,9 +53,9 @@ final class UploadController
                     $channel->basic_publish($msg, $_ENV['RABBIT_EXCHANGE'], '');
                 }
 
-                $sql = "INSERT INTO photos (id_photo, path, title, description, tags, original) VALUES (:id, :path, :title, :description, :tags, 1)";
+                $sql = "INSERT INTO pictures (id_photo, path, title, description, tags, original) VALUES (:id, :path, :title, :description, :tags, 1)";
 
-                $stmt =$mysql->prepare($sql);
+                $stmt = $mysql->prepare($sql);
 
                 $stmt->execute([
                     'id' => $id,
@@ -69,6 +69,12 @@ final class UploadController
 
             $channel->close();
             $connection->close();
+
+            $redis = new \Redis();
+
+            $redis->connect('redis');
+
+            $redis->del('photos');
 
         }
 

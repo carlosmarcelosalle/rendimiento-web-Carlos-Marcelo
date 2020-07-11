@@ -5,3 +5,7 @@ home:
 upload:
   path: /upload
   controller: App\Controller\UploadController::upload
+
+gallery:
+  path: /gallery
+  controller: App\Controller\GalleryController
