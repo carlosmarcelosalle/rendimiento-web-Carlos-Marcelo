@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\ElasticSearchModel;
 use claviska\SimpleImage;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -76,12 +77,13 @@ final class UploadController
 
             $redis->del('photos');
 
+            ElasticSearchModel::addElasticSearch($id, $tags, $path, $title, $description);
+
+
         }
 
         $response = 'success';
 
         return Response::create($response, 200);
-
     }
-
 }

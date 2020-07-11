@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Consumer;
 
+use App\Entity\ElasticSearchModel;
 use PhpAmqpLib\Message\AMQPMessage;
 use claviska\SimpleImage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +45,8 @@ final class ConsumerController extends AbstractController
                 break;
         }
 
+        $message['tags'] .= ','.$message['transformation'];
+
         $newTitle = $message['id']. '-' .$message['transformation']. '.png';
 
         $image->toFile($path . 'transformations/' . $newTitle);
@@ -62,6 +65,9 @@ final class ConsumerController extends AbstractController
             'description' => $message['description'],
             'tags' => $message['tags']
         ]);
+
+        ElasticSearchModel::addElasticSearch($message['id'], $message['tags'], $path, $newTitle, $message['description']);
+
         echo 'Image converted and Saved;'. PHP_EOL;
 
     }
