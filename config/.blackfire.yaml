@@ -8,3 +8,12 @@ tests:
     assertions:
       - { label: null, expression: 'metrics.composer.autoload.find_file.count <= 50' }
     exclude: {  }
+  'Symfony debug mode should be disabled in production':
+    path:
+      - '/.*'
+    methods:
+      - ANY
+    command: '.*'
+    assertions:
+      - { label: null, expression: 'metrics.symfony.kernel.debug.count == 0' }
+    exclude: {  }
