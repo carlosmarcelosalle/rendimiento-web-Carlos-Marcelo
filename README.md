@@ -9,8 +9,8 @@ make stop: Para parar los contenedores.
 make console: Para poder entrar dentro de la consola de phpn y poder ejecutar comandos de symfony.
 
 
-Al levantar los contenedores, mysql generará la tabla necesaria para la base de datos. La va a buscar en 
-/var/mysql/db/pictures.sql . En caso de fallar, ejecutar el Create Table que hay en ese archivo. 
+Al levantar el contenedor de mysql, hay que ir coger el contenido de migrations/pictures.sql y pegarlo en un terminal
+de sql para generar la table necesaria.  
 
 Una vez se hayan levantado los contenedores, hay que hacer un make console y una vez dentro del terminal ejecutar un 
 composer install.
